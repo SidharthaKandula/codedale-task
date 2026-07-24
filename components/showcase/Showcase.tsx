@@ -1,36 +1,86 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { showcaseData } from "./data";
+
 import ShowcaseHeader from "./ShowcaseHeader";
-import ShowcaseCard from "./ShowcaseCard";
+import PhoneTrack from "./PhoneTrack";
+import PanelDeck from "./PanelDeck";
+
 
 export default function Showcase() {
-  const [active, setActive] = useState(0);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setActiveIndex((prev) =>
+        (prev + 1) % showcaseData.length
+      );
+
+    }, 3000);
+
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+
 
   return (
-    <section
-      className="relative overflow-hidden transition-all duration-700"
-      style={{
-        backgroundImage: `url(${showcaseData[active].background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="mx-auto max-w-7xl px-8 py-16">
-        <ShowcaseHeader />
 
-        <div className="mt-16 flex justify-center gap-6">
-          {showcaseData.map((card, index) => (
-            <ShowcaseCard
-              key={card.id}
-              item={card}
-              active={active === index}
-              onHover={() => setActive(index)}
-            />
-          ))}
-        </div>
-      </div>
+    <section
+      className="
+      relative
+      min-h-screen
+      overflow-hidden
+      "
+    >
+
+      <img
+        src={showcaseData[activeIndex].background}
+        className="
+        absolute
+        inset-0
+        w-full
+        h-full
+        object-cover
+        -z-10
+        "
+      />
+
+
+      <ShowcaseHeader />
+
+
+      <PhoneTrack
+        data={showcaseData}
+        activeIndex={activeIndex}
+      />
+
+
+      <div
+key={activeIndex}
+className="
+animate-in
+fade-in
+duration-700
+"
+>
+
+<PanelDeck
+ panels={showcaseData[activeIndex].panels}
+/>
+
+</div>
+
+
     </section>
+
   );
+
 }

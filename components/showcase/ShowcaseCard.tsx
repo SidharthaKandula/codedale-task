@@ -1,5 +1,5 @@
 "use client";
-
+import PanelDeck from "./PanelDeck";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import PanelScroller from "./PanelScroller";
@@ -18,25 +18,22 @@ export default function ShowcaseCard({
 }: Props) {
   return (
     <motion.div
-      onMouseEnter={onHover}
-      animate={{
-        scale: active ? 1 : 0.9,
-        opacity: active ? 1 : 0.45,
-      }}
-      transition={{
-        duration: 0.6,
-      }}
-      className="cursor-pointer"
-    >
-      <Image
-        src={item.image}
-        alt={item.title}
-        width={430}
-        height={560}
-        className="rounded-3xl"
-      />
+  onMouseEnter={onHover}
+  animate={{
+    scale: active ? 1 : 0.9,
+    opacity: active ? 1 : 0.5,
+  }}
+  transition={{ duration: 0.5 }}
+>
+  <Image
+    src={item.image}
+    alt={item.title}
+    width={430}
+    height={560}
+    className="rounded-[36px]"
+  />
 
-      <PanelScroller panels={item.panels} />
-    </motion.div>
+  <PanelDeck panels={item.panels} />
+</motion.div>
   );
 }

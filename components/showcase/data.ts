@@ -3,13 +3,14 @@ export const showcaseData = [
     id: 1,
     title: "Warehouse",
     image: "/beauty-ad-card.webp",
-     background: "/bg1.jpeg",
-      panels: [
+    background: "/bg1.jpeg",
+    panels: [
       "/1.panel1.jpeg",
       "/1.panel2.jpeg",
       "/1.panel3.jpeg",
     ],
   },
+
   {
     id: 2,
     title: "Analytics",
@@ -21,6 +22,7 @@ export const showcaseData = [
       "/2.panel3.jpeg",
     ],
   },
+
   {
     id: 3,
     title: "Marketing",
@@ -32,6 +34,7 @@ export const showcaseData = [
       "/3.panel3.jpeg",
     ],
   },
+
   {
     id: 4,
     title: "Customer",
@@ -43,6 +46,7 @@ export const showcaseData = [
       "/4.panel3.jpeg",
     ],
   },
+
   {
     id: 5,
     title: "Finance",
