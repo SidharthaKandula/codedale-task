@@ -104,7 +104,7 @@ export default function PanelDeck({ panels }: Props) {
               key={`${image}-${index}`}
               layout
               initial={{
-                y: 120,
+                y: 20,
                 opacity: 0,
                 scale: 0.82,
               }}
@@ -115,12 +115,12 @@ export default function PanelDeck({ panels }: Props) {
                 rotate: pos.rotate,
               }}
               exit={{
-                y: -120,
+                y: 20,
                 opacity: 0,
                 scale: 1.08,
               }}
               transition={{
-                duration: 0.75,
+                duration: 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
               style={{
