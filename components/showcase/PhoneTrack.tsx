@@ -12,7 +12,7 @@ export default function PhoneTrack({
   ];
 
   return (
-    <div className="w-full overflow-x-hidden mt-10 md:mt-14 lg:mt-16 px-4">
+    <div className="w-full overflow-hidden mt-10 md:mt-14 lg:mt-16 px-4">
       <div
         className="
           flex
@@ -21,8 +21,10 @@ export default function PhoneTrack({
           gap-3
           sm:gap-4
           md:gap-6
-          lg:gap-8
+          lg:gap-32
           mx-auto
+          rounded-3xl
+          overflow-hidden
         "
       >
         {phones.map((phone: any, index: number) => {
@@ -35,6 +37,7 @@ export default function PhoneTrack({
                 flex-shrink-0
                 transition-all
                 duration-700
+                rounded-3xl
                 ${
                   active
                     ? "scale-100 sm:scale-105 lg:scale-110"

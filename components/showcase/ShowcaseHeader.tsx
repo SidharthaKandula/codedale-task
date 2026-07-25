@@ -2,10 +2,8 @@ export default function ShowcaseHeader() {
   return (
     <section className="mx-auto max-w-7xl px-6 pt-10 lg:px-0 lg:pt-14">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-start">
-
-        {/* Left Content */}
         <div>
-          <h1 className="max-w-[620px] text-4xl font-thin leading-none tracking-[-2px] text-black sm:text-5xl lg:text-7xl lg:tracking-[-4px]">
+          <h1 className="max-w-[620px] text-4xl font-thin leading-none tracking-[-2px] text-black sm:text-5xl lg:text-7xl lg:tracking-[-1px]">
             Marketing looks
             <br />
             different here
@@ -14,13 +12,13 @@ export default function ShowcaseHeader() {
 
         {/* Right Content */}
         <div className="lg:pt-2">
-          <p className="max-w-[600px] text-lg leading-8 text-black sm:text-xl lg:text-2xl lg:leading-[1.35]">
+          <p className="max-w-[600px] text-lg leading-8 text-black sm:text-xl lg:text-2xl lg:leading-[1.35] font-thin">
             Go from insight to live campaign in minutes –
             powered by all your data, brand knowledge,
             and AI.
           </p>
 
-          <button className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#2E2A33] px-6 py-3 text-base font-medium text-white transition-all hover:opacity-90">
+          <button className="mt-4 inline-flex items-center gap-3 rounded-full bg-[#2E2A33] px-6 py-3 text-base font-medium text-white transition-all hover:opacity-90">
             Get a demo
 
             <svg

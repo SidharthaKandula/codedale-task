@@ -22,7 +22,7 @@ export default function PanelScroller({ panels }: Props) {
           ease: "linear",
           repeat: Infinity,
         }}
-        className="flex flex-col gap-6"
+        className="flex flex-col gap-20"
       >
         {images.map((img, index) => (
           <Image
@@ -32,6 +32,7 @@ export default function PanelScroller({ panels }: Props) {
             width={430}
             height={180}
             className="rounded-3xl"
+            rounded-lg
           />
         ))}
       </motion.div>
