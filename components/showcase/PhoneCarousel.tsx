@@ -7,7 +7,7 @@ import { showcaseData } from "./data";
 
 interface Props {
   active: number;
-  setActive: (value: number) => void;
+  setActive: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CARD_WIDTH = 470;
@@ -36,7 +36,7 @@ export default function PhoneCarousel({
 
           x.current = 0;
 
-          setActive((prev) => (prev + 1) % showcaseData.length);
+          setActive((prev: number) => (prev + 1) % showcaseData.length);
         },
       });
     }, 3000);
