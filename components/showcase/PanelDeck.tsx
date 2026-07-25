@@ -1,119 +1,175 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
-interface Panel {
-  title: string;
-  description: string;
-  image?: string;
+interface Props {
+  panels: string[];
 }
 
-interface PanelDeckProps {
-  panel: Panel;
-  panelIndex: number;
-}
+export default function PanelDeck({ panels }: Props) {
+  const [cards, setCards] = useState(panels);
+  const [offset, setOffset] = useState(18);
 
-export default function PanelDeck({
-  panel,
-  panelIndex,
-}: PanelDeckProps) {
+  useEffect(() => {
+    setCards(panels);
+  }, [panels]);
+
+  // Responsive stack offset
+  useEffect(() => {
+    const updateOffset = () => {
+      if (window.innerWidth >= 1280) {
+        setOffset(48);
+      } else if (window.innerWidth >= 1024) {
+        setOffset(40);
+      } else if (window.innerWidth >= 768) {
+        setOffset(28);
+      } else {
+        setOffset(18);
+      }
+    };
+
+    updateOffset();
+
+    window.addEventListener("resize", updateOffset);
+    return () => window.removeEventListener("resize", updateOffset);
+  }, []);
+
+  // Rotate cards every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCards((prev) => {
+        const copy = [...prev];
+        const first = copy.shift()!;
+        copy.push(first);
+        return copy;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const positions = [
+    {
+      x: 0,
+      scale: 1,
+      opacity: 1,
+      rotate: 0,
+      zIndex: 40,
+    },
+    {
+      x: 10,
+      scale: 0.95,
+      opacity: 0.75,
+      rotate: 0,
+      zIndex: 30,
+    },
+    {
+      x: 30 ,
+      scale: 0.9,
+      opacity: 0.55,
+      rotate: -4,
+      zIndex: 20,
+    },
+  ];
+
   return (
     <div
       className="
-        absolute
-        right-24
-        top-1/2
-        -translate-y-1/2
-        w-[380px]
-        h-[260px]
-        z-20
+        relative
+        mx-auto
+
+        w-[220px]
+        h-[220px]
+
+        sm:w-[280px]
+        sm:h-[280px]
+
+        md:w-[360px]
+        md:h-[360px]
+
+        lg:w-[520px]
+        lg:h-[520px]
+
+        xl:w-[560px]
+        xl:h-[560px]
       "
     >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={panelIndex}
-          initial={{
-            opacity: 0,
-            y: 80,
-            scale: 0.88,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-          }}
-          exit={{
-            opacity: 0.65,
-            y: -35,
-            scale: 0.94,
-          }}
-          transition={{
-            duration: 0.65,
-            ease: "easeInOut",
-          }}
-          className="
-            relative
-            w-full
-            h-full
-            rounded-[28px]
-            border
-            border-white/20
-            bg-white/10
-            backdrop-blur-2xl
-            shadow-[0_25px_60px_rgba(0,0,0,0.18)]
-            overflow-hidden
-            p-7
-          "
-        >
-          {/* Gradient Overlay */}
-          <div
-            className="
-              absolute
-              inset-0
-              rounded-[28px]
-              bg-gradient-to-br
-              from-white/30
-              via-white/10
-              to-transparent
-              pointer-events-none
-            "
-          />
+      <AnimatePresence initial={false}>
+        {cards.slice(0, 3).map((image, index) => {
+          const pos = positions[index];
 
-          {/* Top Highlight */}
-          <div
-            className="
-              absolute
-              top-0
-              left-0
-              right-0
-              h-px
-              bg-white/50
-            "
-          />
+          return (
+            <motion.div
+              key={`${image}-${index}`}
+              layout
+              initial={{
+                y: 120,
+                opacity: 0,
+                scale: 0.82,
+              }}
+              animate={{
+                x: pos.x,
+                scale: pos.scale,
+                opacity: pos.opacity,
+                rotate: pos.rotate,
+              }}
+              exit={{
+                y: -120,
+                opacity: 0,
+                scale: 1.08,
+              }}
+              transition={{
+                duration: 0.75,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                zIndex: pos.zIndex,
+              }}
+              className="
+                absolute
+                left-1/2
+                -translate-x-1/2
 
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                {panel.title}
-              </h2>
+                overflow-hidden
 
-              <p className="mt-4 text-[15px] leading-7 text-gray-700">
-                {panel.description}
-              </p>
-            </div>
+                rounded-[18px]
+                lg:rounded-[32px]
 
-            {panel.image && (
-              <div className="mt-6 flex justify-center">
-                <img
-                  src={panel.image}
-                  alt={panel.title}
-                  className="max-h-28 object-contain"
-                />
-              </div>
-            )}
-          </div>
-        </motion.div>
+                border
+                border-white/20
+
+                bg-white/10
+                backdrop-blur-3xl
+
+                shadow-[0_20px_60px_rgba(0,0,0,.25)]
+
+                w-[170px]
+                sm:w-[220px]
+                md:w-[270px]
+                lg:w-[360px]
+                xl:w-[400px]
+
+                mt-3
+                sm:mt-5
+                lg:mt-10
+              "
+            >
+              <img
+                src={image}
+                alt=""
+                className="
+                  w-full
+                  object-cover
+                  rounded-[18px]
+                  lg:rounded-[32px]
+                  select-none
+                  pointer-events-none
+                "
+              />
+            </motion.div>
+          );
+        })}
       </AnimatePresence>
     </div>
   );

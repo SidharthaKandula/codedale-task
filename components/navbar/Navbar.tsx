@@ -2,10 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { useState } from "react";
 import MegaMenu from "@/components/MegaMenu";
 
+const menus = [
+  { key: "platform", label: "Platform" },
+  { key: "solutions", label: "Solutions" },
+  { key: "integrations", label: "Integrations" },
+  { key: "customers", label: "Customers" },
+  { key: "resources", label: "Resources" },
+];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -13,172 +20,158 @@ export default function Navbar() {
 
   return (
     <>
+      {/* HEADER */}
       <header className="sticky top-0 z-[100] border-b border-gray-200 bg-white">
-        <div className=" mx-auto flex h-[70px] max-w-[1400px] items-center justify-between px-5 lg:px-20">
+        <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 lg:px-20">
 
           {/* Logo */}
           <Link href="/">
             <Image
-              src="/Hightouch-logo_black.svg"
-              alt="Hightouch"
+              src="/Hightouch-logo_black.png"
+              alt="Logo"
               width={150}
-              height={28}
+              height={30}
+              border-none
+              
             />
           </Link>
 
           {/* Desktop Navigation */}
-         <nav className="hidden lg:flex items-center gap-3 text-[14px] font-light text-[#7c7c7c]">
+          <nav
+            className="hidden lg:flex items-center gap-2 text-[14px]"
+            onMouseLeave={() => setActiveMenu(null)}
+          >
+            {menus.map((menu) => (
+              <button
+                key={menu.key}
+                onMouseEnter={() => setActiveMenu(menu.key)}
+                className={`rounded-full px-4 py-2 transition ${
+                  activeMenu === menu.key
+                    ? "bg-gray-100 text-black"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                {menu.label}
+              </button>
+            ))}
 
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu("platform")}
-  >
-    Platform
-  </Link>
-
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu("solutions")}
-  >
-    Solutions
-  </Link>
-
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu("integrations")}
-  >
-    Integrations
-  </Link>
-
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu("customers")}
-  >
-    Customers
-  </Link>
-
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu("resources")}
-  >
-    Resources
-  </Link>
-
-  <Link
-    href="/" className="hover:bg-gray-100 rounded-2xl px-3 py-2"
-    onMouseEnter={() => setActiveMenu(null)}
-  >
-    Pricing
-  </Link>
-
-</nav>
+            <Link
+              href="/"
+              className="rounded-full px-4 py-2 text-gray-600 hover:bg-gray-100"
+              onMouseEnter={() => setActiveMenu(null)}
+            >
+              Pricing
+            </Link>
+          </nav>
 
           {/* Desktop Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <button className="rounded-2xl border border-gray-300 px-5 py-2.5 text-[15px]">
+            <button className="rounded-full border border-gray-300 px-5 py-2 text-gray-700">
               Log in
             </button>
 
-            <button className="flex items-center gap-2 rounded-2xl bg-[#242021] px-5 py-2.5 text-white hover:bg-gray-600">
+            <button className="flex items-center gap-2 rounded-full bg-black px-5 py-2 text-white">
               Get a demo
               <ChevronRight size={18} />
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Button */}
           <button
-            onClick={() => setOpen(true)}
             className="lg:hidden"
+            onClick={() => {
+              setOpen(true);
+              setActiveMenu(null);
+            }}
           >
             <Menu size={28} />
           </button>
-
         </div>
       </header>
+
       {/* Desktop Mega Menu */}
-<div
-  className="relative hidden lg:block"
-  onMouseLeave={() => setActiveMenu(null)}
->
-  <MegaMenu activeMenu={activeMenu} />
-</div>
+      <div
+        className="hidden lg:block relative"
+        onMouseLeave={() => setActiveMenu(null)}
+      >
+        <MegaMenu activeMenu={activeMenu} />
+      </div>
 
+      {/* Mobile Drawer */}
       {open && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-white">
+        <div className="fixed inset-0 z-[200] bg-white overflow-y-auto text-gray-900">
 
-          {/* Top */}
-          <div className="flex items-center justify-between p-5">
+          {/* Mobile Header */}
+          <div className="flex items-center justify-between border-b px-5 py-5">
+
             <Image
               src="/Hightouch-logo_black.svg"
-              alt="Hightouch"
+              alt="Logo"
               width={150}
-              height={28}
-              priority
-              loading="eager"
+              height={30}
             />
 
             <button
-              onClick={() => setOpen(false)}
-              className="rounded-xl border p-2"
+              onClick={() => {
+                setOpen(false);
+                setActiveMenu(null);
+              }}
+              className="rounded-lg border p-2"
             >
-              <X size={20} />
+              <X size={22} />
             </button>
           </div>
 
-          {/* Links */}
-          <nav className="mt-6 flex-1">
-           <Link
-              href="/"
-              onMouseEnter={() => setActiveMenu("platform")}
-            >
-              Platform
-            </Link>
+          {/* Mobile Navigation */}
+          <div className="py-3">
+
+            {menus.map((menu) => (
+              <div
+                key={menu.key}
+                className="border-b"
+              >
+                <button
+                  onClick={() =>
+                    setActiveMenu(
+                      activeMenu === menu.key ? null : menu.key
+                    )
+                  }
+                  className="flex w-full items-center justify-between px-6 py-5 text-left text-lg font-medium"
+                >
+                  {menu.label}
+
+                  <ChevronDown
+                    className={`transition-transform duration-300 ${
+                      activeMenu === menu.key
+                        ? "rotate-180"
+                        : ""
+                    }`}
+                  />
+                </button>
+
+                {activeMenu === menu.key && (
+                  <div className="bg-gray-50 px-5 py-4">
+                    <MegaMenu activeMenu={activeMenu} />
+                  </div>
+                )}
+              </div>
+            ))}
 
             <Link
               href="/"
-              onMouseEnter={() => setActiveMenu("solutions")}
+              className="block border-b px-6 py-5 text-lg font-medium"
+              onClick={() => setOpen(false)}
             >
-              Solutions
-            </Link>
-
-            <Link
-              href="/"
-              onMouseEnter={() => setActiveMenu("integrations")}
-            >
-              Integrations
-            </Link>
-
-            <Link
-              href="/"
-              onMouseEnter={() => setActiveMenu("customers")}
-            >
-              Customers
-            </Link>
-
-            <Link
-              href="/"
-              onMouseEnter={() => setActiveMenu("resources")}
-            >
-              Resources
-            </Link>
-
-            <Link href="/">
               Pricing
             </Link>
-          </nav>
-          <div
-  onMouseLeave={() => setActiveMenu(null)}
->
-  
-</div>
-
-          {/* Bottom Buttons */}
-          <div className="border-t p-4 flex gap-3">
-            <button className="flex-1 rounded-full border py-3">
+          </div>
+                    {/* Bottom Buttons */}
+          <div className="border-t p-5 flex gap-3">
+            <button className="flex-1 rounded-full border border-gray-300 py-3 font-medium">
               Log in
             </button>
 
-            <button className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#242021] py-3 text-white">
+            <button className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#242021] py-3 font-medium text-white">
               Get a demo
               <ChevronRight size={18} />
             </button>

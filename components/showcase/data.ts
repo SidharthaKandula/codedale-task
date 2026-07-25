@@ -5,7 +5,7 @@ export const showcaseData = [
     image: "/beauty-ad-card.webp",
     background: "/bg1.jpeg",
     panels: [
-      "/1.panel1.jpeg",
+      "/.panel1.jpeg",
       "/1.panel2.jpeg",
       "/1.panel3.jpeg",
     ],
@@ -17,9 +17,9 @@ export const showcaseData = [
     image: "/fintech-ad-card.webp",
     background: "/bg2.jpeg",
     panels: [
-      "/2.panel1.jpeg",
-      "/2.panel2.jpeg",
-      "/2.panel3.jpeg",
+      "/1.panel1.jpeg",
+      "/1.panel2.jpeg",
+      "/1.panel3.jpeg",
     ],
   },
 

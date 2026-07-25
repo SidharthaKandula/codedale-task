@@ -3,7 +3,7 @@ import React from 'react'
 const ResourcesMenu = () => {
   return (
     <div>
-      <div className="absolute left-1/2 top-full z-50 mt-2 -translate-x-1/2">
+      <div className="absolute left-1/2 top-full z-50 -translate-x-1/2">
   <div className="w-[1280px] rounded-2xl border border-gray-200 bg-white px-10 py-8 shadow-xl">
     <div className="grid grid-cols-4 gap-4">
 

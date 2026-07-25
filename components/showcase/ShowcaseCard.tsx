@@ -23,17 +23,18 @@ export default function ShowcaseCard({
     scale: active ? 1 : 0.9,
     opacity: active ? 1 : 0.5,
   }}
-  transition={{ duration: 0.5 }}
+  transition={{ duration: 0.9 }}
 >
   <Image
-    src={item.image}
-    alt={item.title}
-    width={430}
-    height={560}
-    className="rounded-[36px]"
-  />
-
+  src={item.image}
+  alt={item.title}
+  width={1500}
+  height={1540}
+  className="rounded-[36px]"
+/>
+ <div className="mt-20">
   <PanelDeck panels={item.panels} />
+  </div>
 </motion.div>
   );
 }

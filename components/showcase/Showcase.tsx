@@ -8,31 +8,18 @@ import ShowcaseHeader from "./ShowcaseHeader";
 import PhoneTrack from "./PhoneTrack";
 import PanelDeck from "./PanelDeck";
 
-
 export default function Showcase() {
-
   const [activeIndex, setActiveIndex] = useState(0);
 
-
   useEffect(() => {
-
     const interval = setInterval(() => {
-
-      setActiveIndex((prev) =>
-        (prev + 1) % showcaseData.length
-      );
-
+      setActiveIndex((prev) => (prev + 1) % showcaseData.length);
     }, 3000);
 
-
     return () => clearInterval(interval);
-
   }, []);
 
-
-
   return (
-
     <section
       className="
       relative
@@ -40,7 +27,6 @@ export default function Showcase() {
       overflow-hidden
       "
     >
-
       <img
         src={showcaseData[activeIndex].background}
         className="
@@ -53,34 +39,19 @@ export default function Showcase() {
         "
       />
 
-
       <ShowcaseHeader />
 
+      <div></div>
 
-      <PhoneTrack
-        data={showcaseData}
-        activeIndex={activeIndex}
-      />
-
+      <PhoneTrack data={showcaseData} activeIndex={activeIndex} />
 
       <div
-key={activeIndex}
-className="
-animate-in
-fade-in
-duration-700
+        key={activeIndex}
+        className="animate-in fade-in duration-700
 "
->
-
-<PanelDeck
- panels={showcaseData[activeIndex].panels}
-/>
-
-</div>
-
-
+      >
+        <PanelDeck panels={showcaseData[activeIndex].panels} />
+      </div>
     </section>
-
   );
-
 }

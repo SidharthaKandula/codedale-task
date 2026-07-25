@@ -23,7 +23,7 @@ export default function PhoneCarousel({
   useEffect(() => {
     const interval = setInterval(() => {
       animate(x.current, -CARD_WIDTH, {
-        duration: 0.8,
+        duration: 2,
         ease: [0.22, 1, 0.36, 1],
         onUpdate(value) {
           x.current = value;
@@ -39,7 +39,7 @@ export default function PhoneCarousel({
           setActive((prev) => (prev + 1) % showcaseData.length);
         },
       });
-    }, 2500);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [setActive]);
