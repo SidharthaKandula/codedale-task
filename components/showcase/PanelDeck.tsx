@@ -29,7 +29,20 @@ export default function PanelDeck({ panels }: Props) {
   }, []);
 
   // Back → Middle → Front
- const isMobile = window.innerWidth < 640;
+
+const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen(); // initial check
+
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
 
 const positions = isMobile
   ? [
@@ -42,7 +55,6 @@ const positions = isMobile
       { y: -70, scale: 0.94, opacity: 0.65, zIndex: 20 },
       { y: -30, scale: 1, opacity: 1, zIndex: 30 },
     ];
-
   return (
     <div
       className="
