@@ -23,7 +23,7 @@ export default function Showcase() {
     <section
       className="
       relative
-      min-h-screen
+      h-[140vh]
       overflow-hidden
       "
     >
@@ -33,7 +33,7 @@ export default function Showcase() {
         absolute
         inset-0
         w-full
-        h-full
+        h-[1100px]
         object-cover
         -z-10
         "
@@ -41,7 +41,7 @@ export default function Showcase() {
 
       <ShowcaseHeader />
 
-      <div></div>
+      
 
       <PhoneTrack data={showcaseData} activeIndex={activeIndex} />
 

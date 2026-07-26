@@ -40,7 +40,7 @@ export default function PhoneTrack({
                 rounded-3xl
                 ${
                   active
-                    ? "scale-100 sm:scale-105 lg:scale-110"
+                    ? "scale-100 sm:scale-105 lg:scale-100"
                     : "scale-90 sm:scale-95 lg:scale-100"
                 }
               `}
@@ -49,7 +49,7 @@ export default function PhoneTrack({
                 src={phone.image}
                 alt={phone.title}
                 width={360}
-                height={720}
+                height={620}
                 className={`
                   rounded-3xl
                   object-cover
@@ -62,13 +62,13 @@ export default function PhoneTrack({
                         w-[130px] h-[240px]
                         sm:w-[180px] sm:h-[320px]
                         md:w-[240px] md:h-[420px]
-                        lg:w-[360px] lg:h-[420px]
+                        lg:w-[380px] lg:h-[390px]
                       `
                       : `
                         w-[100px] h-[190px]
                         sm:w-[140px] sm:h-[260px]
                         md:w-[180px] md:h-[320px]
-                        lg:w-[280px] lg:h-[360px]
+                        lg:w-[380px] lg:h-[330px]
                       `
                   }
                 `}

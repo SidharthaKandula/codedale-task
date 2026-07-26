@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import MegaMenu from "@/components/MegaMenu";
+
 
 const menus = [
   { key: "platform", label: "Platform" },
@@ -17,11 +18,29 @@ const menus = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [footerVisible, setFooterVisible] = useState(false);
+  useEffect(() => {
+  const handleFooter = (e: Event) => {
+    const event = e as CustomEvent<boolean>;
+    setFooterVisible(event.detail);
+  };
 
+  window.addEventListener("footer-visible", handleFooter);
+
+  return () => {
+    window.removeEventListener("footer-visible", handleFooter);
+  };
+}, []);
   return (
     <>
       {/* HEADER */}
-      <header className="sticky top-0 z-[100] border-b border-gray-200 bg-white">
+      <header
+  className={`sticky top-0 z-[100] border-b transition-all duration-300 ${
+    footerVisible
+      ? "bg-[#151313] border-[#2c2c2c]"
+      : "bg-white border-gray-200"
+  }`}
+>
         <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between px-5 lg:px-20">
 
           {/* Logo */}
@@ -78,7 +97,7 @@ export default function Navbar() {
 
           {/* Mobile Button */}
           <button
-            className="lg:hidden"
+            className="lg:hidden text-gray-900"
             onClick={() => {
               setOpen(true);
               setActiveMenu(null);
@@ -136,12 +155,12 @@ export default function Navbar() {
                       activeMenu === menu.key ? null : menu.key
                     )
                   }
-                  className="flex w-full items-center justify-between px-6 py-5 text-left text-lg font-medium"
+                  className="flex w-full items-center justify-between px-6 py-5 text-left text-lg font-medium text-gray-900"
                 >
                   {menu.label}
 
                   <ChevronDown
-                    className={`transition-transform duration-300 ${
+                    className={`transition-transform duration-300 text-gray-900 ${
                       activeMenu === menu.key
                         ? "rotate-180"
                         : ""

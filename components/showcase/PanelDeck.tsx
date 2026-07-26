@@ -23,32 +23,25 @@ export default function PanelDeck({ panels }: Props) {
         copy.push(first);
         return copy;
       });
-    }, 1000);
+    }, 1500);
 
     return () => clearInterval(timer);
   }, []);
 
   // Back → Middle → Front
-  const positions = [
-    {
-      y: -100,
-      scale: 0.88,
-      opacity: 0.35,
-      zIndex: 10,
-    },
-    {
-      y: -50,
-      scale: 0.94,
-      opacity: 0.65,
-      zIndex: 20,
-    },
-    {
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      zIndex: 30,
-    },
-  ];
+ const isMobile = window.innerWidth < 640;
+
+const positions = isMobile
+  ? [
+      { y: -35, scale: 0.88, opacity: 0.35, zIndex: 10 },
+      { y: -18, scale: 0.94, opacity: 0.65, zIndex: 20 },
+      { y: 0, scale: 1, opacity: 1, zIndex: 30 },
+    ]
+  : [
+      { y: -100, scale: 0.88, opacity: 0.35, zIndex: 10 },
+      { y: -70, scale: 0.94, opacity: 0.65, zIndex: 20 },
+      { y: -30, scale: 1, opacity: 1, zIndex: 30 },
+    ];
 
   return (
     <div
